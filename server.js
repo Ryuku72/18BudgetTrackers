@@ -26,10 +26,10 @@ app.use(require("./routes/api.js"));
 
 // Listener
 mongoose.connection
-  .once("open", () => console.log(chalk.magentaBright("Connected to Mongoose")))
+.once("open", () => console.log(chalk.magentaBright("Connected to ")+ chalk.greenBright("Mongoose")))
   .on("error", (error) => {
     console.log(chalk.red("Your Error: ", error));
   });
 app.listen(PORT, () => {
-  console.log(chalk.blue.inverse(`App running on port ${PORT}!`));
+  console.log(chalk.blue.bold("APP RUNNING ON PORT ") + chalk.yellow.bold(PORT));
 });
