@@ -73,7 +73,7 @@ As per usual time constraints was the biggest problem. With a large portion of t
 9. Did not impletement any minification
 10. Did not use PWA or webpack
 
-a name="install"></a>
+<a name="install"></a>
 
 ## Installation
 
