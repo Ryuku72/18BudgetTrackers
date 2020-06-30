@@ -20,10 +20,7 @@ function populateTotal() {
   let total = transactions.reduce((total, t) => {
     return total + parseInt(t.value);
   }, 0);
-  function numberWithCommas(x) {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-}
-  let balance = numberWithCommas(Number(total).toFixed(2))
+  let balance = Number(total/100).toFixed(2)
 
   let totalEl = document.querySelector("#total");
   totalEl.textContent = balance;
@@ -36,14 +33,11 @@ function populateTable() {
     // create and populate a table row
     let tr = document.createElement("tr");
 
-    function numberWithCommas(x) {
-      return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  }
     tr.innerHTML = `
     <td>${transaction.date}</td>
     <td>${transaction.name}</td>
-    <td>$${numberWithCommas(Number(transaction.value).toFixed(2))}</td>
-    <td>$${numberWithCommas(Number(transaction.balance).toFixed(2))}</td>
+    <td>$${Number((transaction.value)/100).toFixed(2)}</td>
+    <td>$${Number((transaction.balance)/100).toFixed(2)}</td>
     `;
     tbody.appendChild(tr);
   });
@@ -62,7 +56,7 @@ function populateChart() {
 
   // create incremental values for chart
   let data = reversed.map(t => {
-    sum += parseInt(t.value);
+    sum += parseInt(t.value)/100;
     return sum;
   });
 
@@ -102,11 +96,13 @@ function sendTransaction(isAdding) {
     errorEl.textContent = "";
   }
  
-  let currentTotal = parseInt(totalEl.innerHTML);
-  let deposit = parseInt(amountEl.value) || 0;  
+  let currentTotal = parseFloat(totalEl.innerHTML)*100;
+  let deposit = parseInt(Math.round(amountEl.value*100)) || 0;  
   if (!isAdding) {
     deposit *= -1;
   }
+  console.log(currentTotal)
+  console.log(deposit)
   let balanceTotal = currentTotal + deposit
   
   const date = new Date();
@@ -127,15 +123,10 @@ function sendTransaction(isAdding) {
   let transaction = {
     date: transactionDate,
     name: name,
-    value: amountEl.value,
+    value: deposit,
     balance: balanceTotal,
     update: new Date().toISOString()
   };
-
-  // if subtracting funds, convert amount to negative number
-  if (!isAdding) {
-    transaction.value *= -1;
-  }
 
   // add to beginning of current array of data
   transactions.unshift(transaction);
