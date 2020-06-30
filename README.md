@@ -8,7 +8,6 @@
 
 ### Working Project Example
 * Heroku App https://jkbbudgettrack.herokuapp.com/
-<br>
 
 ### Aim
 Take a budget app and save information to a mongoDB database and allow functionality to continue offline through indexedDB. IndexedDB will then update the mongoDB upon coming online.
@@ -20,7 +19,6 @@ Take a budget app and save information to a mongoDB database and allow functiona
 * [Project Issues](#issues)
 * [Installation](#install)
 * [Additional Information](#add)
- <br>
 
 <a name="intro"></a>
 
@@ -94,10 +92,10 @@ Alternatively visit the Heroku page at https://jkbbudgettrack.herokuapp.com/
 <a name="add"></a>
 
 ## Additional Information
-###Tests
+### Tests
 * No test were run
 
-###License
+### License
 Licenses: MIT
 
 
