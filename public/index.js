@@ -29,7 +29,6 @@ function populateTable() {
   let tbody = document.querySelector("#tbody");
   tbody.innerHTML = "";
   transactions.forEach(transaction => {
-    console.log(transaction)
     // create and populate a table row
     let tr = document.createElement("tr");
     tr.innerHTML = `
@@ -38,7 +37,6 @@ function populateTable() {
     <td>${transaction.value}</td>
     <td>${transaction.balance}</td>
     `;
-
     tbody.appendChild(tr);
   });
 }
@@ -77,7 +75,7 @@ function populateChart() {
             backgroundColor: "#6666ff",
             data
         }]
-    }
+    },
   });
 }
 
@@ -97,22 +95,19 @@ function sendTransaction(isAdding) {
   }
  
   let currentTotal = parseInt(totalEl.innerHTML);
-  let deposit = parseInt(amountEl.value) || 0;
-  
+  let deposit = parseInt(amountEl.value) || 0;  
   if (!isAdding) {
     deposit *= -1;
   }
-
   let balanceTotal = currentTotal + deposit
-
-  console.log(currentTotal)
-  console.log(deposit)
-  console.log(balanceTotal)
-
-  const date = new Date()
-  const transactionDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
-
-  console.log(transactionDate)
+  
+  const date = new Date();
+  const day = ('0' + date.getDate()).slice(-2)
+  const month = ('0' + (date.getMonth() + 1)).slice(-2)
+  const year = date.getFullYear()
+  const hour = ('0' + date.getHours()).slice(-2)
+  const minute = ('0' + date.getMinutes()).slice(-2)
+  const transactionDate = `${day}/${month}/${year} ${hour}:${minute}`;
 
   // create record
   let transaction = {
