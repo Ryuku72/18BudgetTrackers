@@ -94,10 +94,12 @@ Alternatively visit the Heroku page at https://jkbbudgettrack.herokuapp.com/
 <a name="add"></a>
 
 ## Additional Information
+###Tests
 * No test were run
 
-## Additional Information
+###License
 Licenses: MIT
+
 
 
 ### Resources
