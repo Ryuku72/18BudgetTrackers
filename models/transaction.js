@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 
 const transactionSchema = new Schema(
   {
+    date: {
+      type: String
+    },
     name: {
       type: String,
       trim: true,
@@ -13,10 +16,14 @@ const transactionSchema = new Schema(
       type: Number,
       required: "Enter an amount"
     },
-    date: {
+     balance:{
+       type: Number,
+       required: "Enter Balance"
+     },
+     update: {
       type: Date,
       default: Date.now
-    }
+    },
   }
 );
 

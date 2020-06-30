@@ -12,6 +12,7 @@ fetch("/api/transaction")
     populateTotal();
     populateTable();
     populateChart();
+
   });
 
 function populateTotal() {
@@ -27,13 +28,15 @@ function populateTotal() {
 function populateTable() {
   let tbody = document.querySelector("#tbody");
   tbody.innerHTML = "";
-
   transactions.forEach(transaction => {
+    console.log(transaction)
     // create and populate a table row
     let tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${transaction.name}</td>
-      <td>${transaction.value}</td>
+    <td>${transaction.date}</td>
+    <td>${transaction.name}</td>
+    <td>${transaction.value}</td>
+    <td>${transaction.balance}</td>
     `;
 
     tbody.appendChild(tr);
@@ -47,7 +50,7 @@ function populateChart() {
 
   // create date labels for chart
   let labels = reversed.map(t => {
-    let date = new Date(t.date);
+    let date = new Date(t.update);
     return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
   });
 
@@ -81,6 +84,7 @@ function populateChart() {
 function sendTransaction(isAdding) {
   let nameEl = document.querySelector("#t-name");
   let amountEl = document.querySelector("#t-amount");
+  let totalEl = document.querySelector("#total");
   let errorEl = document.querySelector(".form .error");
 
   // validate form
@@ -91,12 +95,32 @@ function sendTransaction(isAdding) {
   else {
     errorEl.textContent = "";
   }
+ 
+  let currentTotal = parseInt(totalEl.innerHTML);
+  let deposit = parseInt(amountEl.value) || 0;
+  
+  if (!isAdding) {
+    deposit *= -1;
+  }
+
+  let balanceTotal = currentTotal + deposit
+
+  console.log(currentTotal)
+  console.log(deposit)
+  console.log(balanceTotal)
+
+  const date = new Date()
+  const transactionDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+
+  console.log(transactionDate)
 
   // create record
   let transaction = {
+    date: transactionDate,
     name: nameEl.value,
     value: amountEl.value,
-    date: new Date().toISOString()
+    balance: balanceTotal,
+    update: new Date().toISOString()
   };
 
   // if subtracting funds, convert amount to negative number
