@@ -101,8 +101,8 @@ function sendTransaction(isAdding) {
   if (!isAdding) {
     deposit *= -1;
   }
-  console.log(currentTotal)
-  console.log(deposit)
+ // console.log(currentTotal)
+ // console.log(deposit)
   let balanceTotal = currentTotal + deposit
   
   const date = new Date();
@@ -117,7 +117,7 @@ function sendTransaction(isAdding) {
     return value.charAt(0).toUpperCase() + value.slice(1);
   }
   const name = capitalize(nameEl.value)
-  console.log(name)
+ // console.log(name)
 
   // create record
   let transaction = {
