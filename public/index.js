@@ -20,9 +20,13 @@ function populateTotal() {
   let total = transactions.reduce((total, t) => {
     return total + parseInt(t.value);
   }, 0);
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+}
+  let balance = numberWithCommas(Number(total).toFixed(2))
 
   let totalEl = document.querySelector("#total");
-  totalEl.textContent = total;
+  totalEl.textContent = balance;
 }
 
 function populateTable() {
@@ -31,11 +35,15 @@ function populateTable() {
   transactions.forEach(transaction => {
     // create and populate a table row
     let tr = document.createElement("tr");
+
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  }
     tr.innerHTML = `
     <td>${transaction.date}</td>
     <td>${transaction.name}</td>
-    <td>${transaction.value}</td>
-    <td>${transaction.balance}</td>
+    <td>$${numberWithCommas(Number(transaction.value).toFixed(2))}</td>
+    <td>$${numberWithCommas(Number(transaction.balance).toFixed(2))}</td>
     `;
     tbody.appendChild(tr);
   });
@@ -109,10 +117,16 @@ function sendTransaction(isAdding) {
   const minute = ('0' + date.getMinutes()).slice(-2)
   const transactionDate = `${day}/${month}/${year} ${hour}:${minute}`;
 
+  capitalize = function(value){
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+  const name = capitalize(nameEl.value)
+  console.log(name)
+
   // create record
   let transaction = {
     date: transactionDate,
-    name: nameEl.value,
+    name: name,
     value: amountEl.value,
     balance: balanceTotal,
     update: new Date().toISOString()
